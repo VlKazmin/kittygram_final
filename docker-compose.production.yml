@@ -17,6 +17,9 @@ services:
     volumes:
       - static_volume:/backend_static
       - media_volume:/media
+    depends_on:
+      - db
+
   frontend:
     env_file: .env
     image: vlkazmin/kittygram_frontend
