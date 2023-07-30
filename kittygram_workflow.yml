@@ -1,4 +1,4 @@
-name: Main Taski workflow
+name: Main Kittygram workflow
 
 on:
     push:
@@ -41,6 +41,7 @@ jobs:
           POSTGRES_DB: django_db
           DB_HOST: 127.0.0.1
           DB_PORT: 5432
+          SECRET_KEY: secret
         run: |
             python -m flake8 backend/
             cd backend/
@@ -156,7 +157,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         source: "docker-compose.production.yml"
-        target: "taski"
+        target: "Kittygram"
 
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
@@ -166,7 +167,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
-          cd kittygram_final
+          cd kittygram
           sudo docker compose -f docker-compose.production.yml pull
           sudo docker compose -f docker-compose.production.yml down
           sudo docker compose -f docker-compose.production.yml up -d
@@ -183,4 +184,4 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: Деплой успешно выполнен!
+        message: Деплой kittygram успешно выполнен!
