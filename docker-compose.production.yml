@@ -11,6 +11,7 @@ services:
     volumes:
       - pg_data_production:/var/lib/postgresql/data
     env_file: .env
+
   backend:
     image: vlkazmin/kittygram_backend
     env_file: .env
@@ -26,6 +27,7 @@ services:
     command: cp -r /app/build/. /frontend_static/
     volumes:
       - static_volume:/frontend_static
+
   gateway:
     image: vlkazmin/kittygram_gateway
     env_file: .env
